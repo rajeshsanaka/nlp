@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analysis</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        /* Navbar styling */
+        .navbar {
+            background-color: #2a3dbe;
+            overflow: hidden;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 14px 20px;
+            display: block;
+        }
+        .navbar a:hover {
+            background-color: #575757;
+            color: white;
+        }
+        .navbar .brand {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .navbar-links {
+            display: flex;
+            gap: 15px;
+        }
+        /* General page styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .container {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="brand">Sentiment Analysis</div>
+        <div class="navbar-links">
+            <a href="/">Home</a>
+            <a href="/analyze">Analyze</a>
+            <a href="/about">About</a>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="container">
+        <h1>Sentiment Analysis</h1>
+        <form action="/analyze" method="post">
+            <textarea name="review" placeholder="Enter your review here..." rows="5" cols="50" required></textarea><br>
+            <button type="submit">Analyze</button>
+        </form>
+        
+        {% if review %}
+        <h2>Analysis Results</h2>
+        <p><strong>Review:</strong> {{ review }}</p>
+        <h3>VADER Results</h3>
+        <ul>
+            <li>Positive: {{ results.VADER.pos }}</li>
+            <li>Negative: {{ results.VADER.neg }}</li>
+            <li>Compound: {{ results.VADER.compound }}</li>
+        </ul>
+        <h3>RoBERTa Results</h3>
+        <ul>
+            <li>Positive: {{ results.RoBERTa.roberta_pos }}</li>
+            <li>Neutral: {{ results.RoBERTa.roberta_neu }}</li>
+            <li>Negative: {{ results.RoBERTa.roberta_neg }}</li>
+        </ul>
+        {% endif %}     
+    </div>
+</body>
+</html>
